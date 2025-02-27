@@ -1,5 +1,4 @@
 <script lang="ts">
-    import MobileNavbar from "$lib/components/MobileNavbar.svelte";
     import {
         Navbar,
         NavBrand,
@@ -9,6 +8,8 @@
         DarkMode,
     } from "flowbite-svelte";
     import "../app.css";
+    import MobileNavbar from "$lib/components/MobileNavbar/MobileNavbar.svelte";
+    import MobileTopbar from "$lib/components/MobileTopbar/MobileTopbar.svelte";
     let { children } = $props();
 </script>
 
@@ -33,6 +34,9 @@
                 <NavLi><DarkMode /></NavLi>
             </NavUl>
         </Navbar>
+    </div>
+    <div class="block sm:hidden py-3">
+        <MobileTopbar />
     </div>
 
     {@render children()}
