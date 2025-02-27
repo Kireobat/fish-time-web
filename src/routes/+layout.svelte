@@ -19,6 +19,7 @@
     <div class="hidden sm:block">
         <Navbar color="none">
             <NavBrand href="/">
+                <img src="/logo.svg" alt="Flowbite logo" class="w-8 h-8 mr-2" />
                 <span
                     class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
                     >Flowbite</span
@@ -30,7 +31,7 @@
                 <NavLi href="/about">About</NavLi>
                 <NavLi href="/docs/components/navbar">Navbar</NavLi>
                 <NavLi href="/pricing">Pricing</NavLi>
-                <NavLi href="/contact">Contact</NavLi>
+                <NavLi href="/legal">Legal</NavLi>
                 <NavLi><DarkMode /></NavLi>
             </NavUl>
         </Navbar>

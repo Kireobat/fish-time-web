@@ -10,7 +10,9 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"openapi:all": "npm run openapi:fish-time",
+		"openapi:fish-time": "openapi-generator-cli generate -i  https://api.kireobat.eu/fish-time/v3/api-docs -g typescript-fetch -o src/lib/generated/fish-time --additional-properties=supportsES6=true,useSingleRequestParameter=true --skip-validate-spec"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
@@ -40,6 +42,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@openapitools/openapi-generator-cli": "^2.16.3",
 		"@sveltejs/adapter-node": "^5.2.12"
 	}
 }

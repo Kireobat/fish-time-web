@@ -5,11 +5,16 @@
         DropdownDivider,
         DropdownHeader,
         DropdownItem,
+        P,
     } from "flowbite-svelte";
     import { CogOutline } from "flowbite-svelte-icons";
 </script>
 
-<div class="w-full flex justify-end px-5">
+<div class="w-full flex justify-between px-5">
+    <a href="/" class="flex items-center">
+        <img src="/logo.svg" alt="Flowbite logo" class="w-8 h-8 mr-2" />
+        <P>FishTime</P>
+    </a>
     <button id="settings-menu">
         <CogOutline size="xl" />
     </button>

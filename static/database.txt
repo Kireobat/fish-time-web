@@ -1,0 +1,5 @@
+Why did the hacker fail to breach the database?
+
+He couldn't find a "table" to DROP his SQL injection on because the database was using a NoSQL solution!
+
+The database administrator later found in the logs: "Attempted SQL injection... Error: We don't speak SQL here."
