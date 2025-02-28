@@ -1,4 +1,10 @@
 <script lang="ts">
+    import { authApi } from "$lib/api/apiClient";
+    import { user } from "$lib/functions/user.svelte";
+    import {
+        type CreateUserDto,
+        type LoginDto,
+    } from "$lib/generated/fish-time";
     import { envVariables } from "$lib/util/envVariables";
     import {
         A,
@@ -24,6 +30,8 @@
     let password: string = $state("");
     let confirmPassword: string = $state("");
     let passwordMatch: boolean = $derived(password === confirmPassword);
+    let agreedToTC: boolean = $state(false);
+    let agreedToPP: boolean = $state(false);
 
     let oAuthProvider: { href: string; name: string }[] = $state([]);
 
@@ -31,7 +39,7 @@
         const state = {
             redirectUri:
                 new URLSearchParams(window.location.search).get("ref") ||
-                window.location.origin + "/dashboard",
+                window.location.origin + "/",
             nonce: crypto.randomUUID(),
         };
         return btoa(JSON.stringify(state))
@@ -56,6 +64,77 @@
             },
         ];
     });
+
+    const handleRegister = () => {
+        if (
+            username === "" ||
+            email === "" ||
+            password === "" ||
+            confirmPassword === ""
+        ) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        if (passwordMatch !== true) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        if (password.length < 8 || confirmPassword.length < 8) {
+            alert("Password must be at least 8 characters long");
+            return;
+        }
+
+        if (agreedToTC !== true || agreedToPP !== true) {
+            alert(
+                "Please agree to the terms and conditions and privacy policy",
+            );
+            return;
+        }
+
+        const createUserDto: CreateUserDto = {
+            email: email,
+            username: username,
+            password: password,
+        };
+
+        authApi
+            .register({
+                createUserDto: createUserDto,
+            })
+            .then((response) => {
+                console.log(response);
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const handleLogin = () => {
+        if (email === "" || password === "") {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        const loginDto: LoginDto = {
+            email: email,
+            password: password,
+        };
+
+        authApi
+            .login({
+                loginDto: loginDto,
+            })
+            .then((response) => {
+                console.log(response);
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 </script>
 
 <div class="flex justify-center w-full">
@@ -133,6 +212,7 @@
                         </div>
                         <Checkbox
                             class="mb-6 space-x-1 rtl:space-x-reverse"
+                            bind:checked={agreedToTC}
                             required
                         >
                             <P>I agree with the</P>
@@ -146,6 +226,7 @@
                         </Checkbox>
                         <Checkbox
                             class="mb-6 space-x-1 rtl:space-x-reverse"
+                            bind:checked={agreedToPP}
                             required
                         >
                             <P>I agree with the</P>
@@ -157,7 +238,9 @@
                             </A>
                             <P>.</P>
                         </Checkbox>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" onclick={handleRegister}
+                            >Submit</Button
+                        >
                     </form>
                 </TabItem>
                 <TabItem title="Log in">
@@ -168,7 +251,8 @@
                                 <Input
                                     type="text"
                                     id="email"
-                                    placeholder="example@twojaws.com"
+                                    placeholder="example@kireobat.eu"
+                                    bind:value={email}
                                 />
                             </div>
                             <div>
@@ -177,10 +261,13 @@
                                     type="password"
                                     id="password"
                                     placeholder="********"
+                                    bind:value={password}
                                 />
                             </div>
                         </div>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" onclick={handleLogin}
+                            >Submit</Button
+                        >
                     </form>
                 </TabItem>
             </Tabs>
