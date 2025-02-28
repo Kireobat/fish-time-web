@@ -138,7 +138,7 @@
 </script>
 
 <div class="flex justify-center w-full">
-    <Card class="flex flex-col gap-4">
+    <Card class="flex flex-col gap-4" size="lg">
         <div>
             <Heading
                 tag="h1"
@@ -168,13 +168,12 @@
             <Tabs>
                 <TabItem open title="Register">
                     <form>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col gap-3 mb-6">
                             <div>
                                 <Label for="email">Email</Label>
                                 <Input
                                     type="text"
                                     id="email"
-                                    placeholder="example@kireobat.eu"
                                     bind:value={email}
                                 />
                             </div>
@@ -183,7 +182,6 @@
                                 <Input
                                     type="text"
                                     id="username"
-                                    placeholder="username"
                                     bind:value={username}
                                 />
                             </div>
@@ -192,7 +190,6 @@
                                 <Input
                                     type="password"
                                     id="password"
-                                    placeholder="********"
                                     bind:value={password}
                                     color={passwordMatch ? "base" : "red"}
                                 />
@@ -204,54 +201,54 @@
                                 <Input
                                     type="password"
                                     id="confirm_password"
-                                    placeholder="********"
                                     bind:value={confirmPassword}
                                     color={passwordMatch ? "base" : "red"}
                                 />
                             </div>
                         </div>
-                        <Checkbox
-                            class="mb-6 space-x-1 rtl:space-x-reverse"
-                            bind:checked={agreedToTC}
-                            required
-                        >
-                            <P>I agree with the</P>
-                            <A href="/legal/terms-and-conditions">
-                                <P
-                                    class="text-primary-700 dark:text-primary-600 hover:underline"
-                                    >terms and conditions</P
-                                >
-                            </A>
-                            <P>.</P>
-                        </Checkbox>
-                        <Checkbox
-                            class="mb-6 space-x-1 rtl:space-x-reverse"
-                            bind:checked={agreedToPP}
-                            required
-                        >
-                            <P>I agree with the</P>
-                            <A href="/legal/privacy-policy">
-                                <P
-                                    class="text-primary-700 dark:text-primary-600 hover:underline"
-                                    >privacy policy</P
-                                >
-                            </A>
-                            <P>.</P>
-                        </Checkbox>
+                        <div class="flex flex-col gap-1 mb-6">
+                            <Checkbox
+                                class="space-x-1 rtl:space-x-reverse"
+                                bind:checked={agreedToTC}
+                                required
+                            >
+                                <P>I agree with the</P>
+                                <A href="/legal/terms-and-conditions">
+                                    <P
+                                        class="text-primary-700 dark:text-primary-600 hover:underline"
+                                        >terms and conditions</P
+                                    >
+                                </A>
+                                <P>.</P>
+                            </Checkbox>
+                            <Checkbox
+                                class="space-x-1 rtl:space-x-reverse"
+                                bind:checked={agreedToPP}
+                                required
+                            >
+                                <P>I agree with the</P>
+                                <A href="/legal/privacy-policy">
+                                    <P
+                                        class="text-primary-700 dark:text-primary-600 hover:underline"
+                                        >privacy policy</P
+                                    >
+                                </A>
+                                <P>.</P>
+                            </Checkbox>
+                        </div>
                         <Button type="submit" onclick={handleRegister}
-                            >Submit</Button
+                            >Register</Button
                         >
                     </form>
                 </TabItem>
                 <TabItem title="Log in">
                     <form>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col gap-3 mb-6">
                             <div>
                                 <Label for="email">Email</Label>
                                 <Input
                                     type="text"
                                     id="email"
-                                    placeholder="example@kireobat.eu"
                                     bind:value={email}
                                 />
                             </div>
@@ -260,13 +257,12 @@
                                 <Input
                                     type="password"
                                     id="password"
-                                    placeholder="********"
                                     bind:value={password}
                                 />
                             </div>
                         </div>
                         <Button type="submit" onclick={handleLogin}
-                            >Submit</Button
+                            >Login</Button
                         >
                     </form>
                 </TabItem>

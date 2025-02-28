@@ -35,10 +35,10 @@ export interface ParticipantDto {
     id?: number;
     /**
      * 
-     * @type {number}
+     * @type {UserDto}
      * @memberof ParticipantDto
      */
-    userId?: number;
+    user?: UserDto;
     /**
      * 
      * @type {number}
@@ -95,7 +95,7 @@ export function ParticipantDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
-        'userId': json['userId'] == null ? undefined : json['userId'],
+        'user': json['user'] == null ? undefined : UserDtoFromJSON(json['user']),
         'meetingId': json['meetingId'] == null ? undefined : json['meetingId'],
         'status': json['status'] == null ? undefined : json['status'],
         'createdTime': json['createdTime'] == null ? undefined : (new Date(json['createdTime'])),
@@ -117,7 +117,7 @@ export function ParticipantDtoToJSONTyped(value?: ParticipantDto | null, ignoreD
     return {
         
         'id': value['id'],
-        'userId': value['userId'],
+        'user': UserDtoToJSON(value['user']),
         'meetingId': value['meetingId'],
         'status': value['status'],
         'createdTime': value['createdTime'] == null ? undefined : ((value['createdTime']).toISOString()),

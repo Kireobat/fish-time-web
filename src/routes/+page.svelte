@@ -5,10 +5,25 @@
     import List from "@event-calendar/list";
     import Interaction from "@event-calendar/interaction";
     import type { CalendarOptions, EventInput } from "$lib/types/EventCalendar";
-    import { Button, P } from "flowbite-svelte";
     import CreateMeetingModal from "$lib/components/CreateMeetingModal/CreateMeetingModal.svelte";
-    import type { FishTimePageDtoMeetingDto } from "$lib/generated/fish-time";
+    import type {
+        FishTimePageDtoMeetingDto,
+        MeetingDto,
+    } from "$lib/generated/fish-time";
     import { getMeetings } from "$lib/functions/get/getMeetings";
+    import MeetingModal from "$lib/components/MeetingModal/MeetingModal.svelte";
+
+    let meetingModalIsOpen: boolean = $state(false);
+    let selectedMeetingId: number = $state(0);
+    let selectedMeeting: MeetingDto | undefined = $state();
+
+    $effect(() => {
+        if (selectedMeetingId && meetingPageDto?.page) {
+            selectedMeeting = meetingPageDto?.page.find(
+                (meeting) => meeting.id === selectedMeetingId,
+            );
+        }
+    });
 
     let currentCalendarDate = $state(new Date());
     let currentCalendarEndDate = $state(new Date());
@@ -53,6 +68,10 @@
             currentCalendarDate = info.start;
             currentCalendarEndDate = info.end;
         },
+        eventClick: (info) => {
+            selectedMeetingId = Number(info.event.id);
+            meetingModalIsOpen = true;
+        },
         events: events,
     });
 
@@ -75,6 +94,7 @@
         if (meetingPageDto && meetingPageDto.page) {
             events = meetingPageDto.page.map((meeting) => {
                 return {
+                    id: meeting.id,
                     title: meeting.title ?? "Untitled Meeting",
                     start: meeting.startTime ?? new Date(),
                     end: meeting.endTime ?? new Date(),
@@ -84,6 +104,7 @@
     });
 </script>
 
+<MeetingModal bind:open={meetingModalIsOpen} meeting={selectedMeeting} />
 <div class="p-8">
     <div class="flex gap-8 mb-8">
         <CreateMeetingModal />
