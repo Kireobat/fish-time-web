@@ -1,9 +1,10 @@
 // In a new file like $lib/api/apiClient.ts
 import { AuthControllerApi, UserControllerApi, RoomControllerApi, MeetingControllerApi, ParticipantControllerApi } from "$lib/generated/fish-time";
 import { Configuration } from "$lib/generated/fish-time/runtime";
+import { envVariables } from "$lib/util/envVariables";
 
 const config = new Configuration({
-    basePath: "http://localhost:8080/fish-time",
+    basePath: envVariables.backendUrl(),
     credentials: "include"
 });
 
