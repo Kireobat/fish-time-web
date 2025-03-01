@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "https://api.kireobat.eu/fish-time".replace(/\/+$/, "");
+export const BASE_PATH = "http://localhost:8080/fish-time".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path

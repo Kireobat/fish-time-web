@@ -1,12 +1,13 @@
-import { participantApi } from "$lib/api/apiClient";
-import { ResponseError, type CreateParticipantDto, type FishTimeResponseDto, type ParticipantDto } from "$lib/generated/fish-time";
+import { userApi } from "$lib/api/apiClient";
+import { ResponseError, type FishTimeResponseDto, type UpdateUserDto, type UserDto } from "$lib/generated/fish-time";
 import { feedback } from "../feedback.svelte";
 
-export const createParticipant = async (createParticipantDto: CreateParticipantDto): Promise<ParticipantDto> => {
+
+export const patchUser = async (updateUserDto: UpdateUserDto): Promise<UserDto> => {
     try {
-        const res = await participantApi.addParticipant({ createParticipantDto: createParticipantDto });
+        const res = await userApi.updateUser({ updateUserDto: updateUserDto });
         feedback.current?.push({
-            message: "Added participant successfully",
+            message: "Profile updated successfully",
             type: "success"
         });
         return res;

@@ -20,6 +20,7 @@
     import { user } from "$lib/functions/user.svelte";
     import { getProfile } from "$lib/functions/get/getProfile";
     import { onMount } from "svelte";
+    import Feedback from "$lib/components/Feedback/Feedback.svelte";
     let { children } = $props();
 
     const getUser = async () => {
@@ -105,3 +106,5 @@
         <MobileNavbar />
     </div>
 </div>
+
+<Feedback />

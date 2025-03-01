@@ -1,5 +1,7 @@
 <script lang="ts">
     import { authApi } from "$lib/api/apiClient";
+    import { login } from "$lib/functions/auth/login";
+    import { register } from "$lib/functions/auth/register";
     import { user } from "$lib/functions/user.svelte";
     import {
         type CreateUserDto,
@@ -99,17 +101,7 @@
             password: password,
         };
 
-        authApi
-            .register({
-                createUserDto: createUserDto,
-            })
-            .then((response) => {
-                console.log(response);
-                window.location.href = "/";
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        register(createUserDto);
     };
 
     const handleLogin = () => {
@@ -123,17 +115,7 @@
             password: password,
         };
 
-        authApi
-            .login({
-                loginDto: loginDto,
-            })
-            .then((response) => {
-                console.log(response);
-                window.location.href = "/";
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        login(loginDto);
     };
 </script>
 
