@@ -12,8 +12,10 @@
     } from "$lib/generated/fish-time";
     import { getMeetings } from "$lib/functions/get/getMeetings";
     import MeetingModal from "$lib/components/MeetingModal/MeetingModal.svelte";
+    import { Button } from "flowbite-svelte";
 
     let meetingModalIsOpen: boolean = $state(false);
+    let createMeetingModalIsOpen: boolean = $state(false);
     let selectedMeetingId: number = $state(0);
     let selectedMeeting: MeetingDto | undefined = $state();
 
@@ -107,7 +109,11 @@
 <MeetingModal bind:open={meetingModalIsOpen} meeting={selectedMeeting} />
 <div class="p-8">
     <div class="flex gap-8 mb-8">
-        <CreateMeetingModal />
+        <CreateMeetingModal bind:open={createMeetingModalIsOpen}>
+            <Button onclick={() => (createMeetingModalIsOpen = true)}
+                >Create Meeting</Button
+            >
+        </CreateMeetingModal>
     </div>
     <Calendar {plugins} {options} />
 </div>

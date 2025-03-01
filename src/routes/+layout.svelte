@@ -37,10 +37,14 @@
     <div class="hidden sm:block mx-8">
         <Navbar color="none">
             <NavBrand href="/">
-                <img src="/logo.svg" alt="Flowbite logo" class="w-8 h-8 mr-2" />
+                <img
+                    src="/logo.svg"
+                    alt="Flowbite logo"
+                    class="w-16 h-16 mr-2"
+                />
                 <span
                     class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-                    >Flowbite</span
+                    >Fishtime</span
                 >
             </NavBrand>
             <NavHamburger />

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { user } from "$lib/functions/user.svelte";
     import {
         DarkMode,
         Dropdown,
@@ -20,18 +21,31 @@
     </button>
     <Dropdown placement="bottom" triggeredBy="#settings-menu">
         <DropdownHeader>
-            <span class="block text-sm">Bonnie Green</span>
-            <span class="block truncate text-sm font-medium"
-                >name@flowbite.com</span
-            >
+            {#if user.current}
+                <span class="block text-sm">{user.current?.username}</span>
+                <span class="block truncate text-sm font-medium"
+                    >{user.current?.email}</span
+                >
+            {:else}
+                <span class="block text-sm">Not logged in</span>
+            {/if}
         </DropdownHeader>
-        <DropdownItem>Dashboard</DropdownItem>
-        <DropdownItem>Settings</DropdownItem>
-        <DropdownItem>Earnings</DropdownItem>
-        <DropdownItem>
-            <DarkMode />
-        </DropdownItem>
-        <DropdownDivider />
-        <DropdownItem>Sign out</DropdownItem>
+        <DropdownItem href="/legal">Legal</DropdownItem>
+
+        {#if user.current}
+            <DropdownItem>
+                <a href="/admin">Admin</a>
+            </DropdownItem>
+            <DropdownItem>
+                <a href="/profile">Profile</a>
+            </DropdownItem>
+            <DropdownItem>
+                <a href="/logout">Log out</a>
+            </DropdownItem>
+        {:else}
+            <DropdownItem>
+                <a href="/login">Log in or register</a>
+            </DropdownItem>
+        {/if}
     </Dropdown>
 </div>

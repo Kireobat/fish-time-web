@@ -22,9 +22,16 @@
         Search,
     } from "flowbite-svelte";
     import { ChevronDownOutline } from "flowbite-svelte-icons";
-    import { onMount } from "svelte";
+    import { onMount, type Snippet } from "svelte";
 
-    let open = $state(false);
+    interface CreateMeetingModalProps {
+        children: Snippet<[]>;
+        open: boolean;
+    }
+
+    let { children, open = $bindable(false) }: CreateMeetingModalProps =
+        $props();
+
     let filtersVisible = $state(false);
 
     let roomPageDto: FishTimePageDtoRoomDto | undefined = $state();
@@ -133,7 +140,7 @@
     };
 </script>
 
-<Button onclick={() => (open = true)}>Create Meeting</Button>
+{@render children()}
 
 <Modal bind:open outsideclose>
     <form>
