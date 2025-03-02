@@ -283,14 +283,6 @@
             {/if}
         </div>
         <div class="mt-4">
-            <Label>Participants</Label>
-            <Search
-                bind:value={userSearchQuery}
-                placeholder="Search users..."
-                class="mb-3"
-            />
-        </div>
-        <div class="mt-4">
             <Label for="participants" class="mb-2">Participants</Label>
             <Search
                 bind:value={userSearchQuery}

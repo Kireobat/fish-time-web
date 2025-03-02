@@ -41,16 +41,16 @@
         }
     });
 
-    async function handleDeleteRoom(id: number) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            try {
-                await deleteRoom(id);
-            } catch (e) {
-                alert(
-                    `Error: ${e instanceof Error ? e.message : "Failed to delete room"}`,
-                );
-            }
-        }
+    function formatDate(date: Date | undefined): string {
+        if (!date) return "";
+        return date.toLocaleString("nb-NO", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        });
     }
 </script>
 
@@ -84,7 +84,7 @@
                         <TableBodyCell>{user.username}</TableBodyCell>
                         <TableBodyCell>{user.email}</TableBodyCell>
                         <TableBodyCell
-                            >{user.createdTime?.toLocaleDateString()}</TableBodyCell
+                            >{formatDate(user.createdTime)}</TableBodyCell
                         >
                         <TableBodyCell class="flex gap-2">
                             <EditUserModal {user} />
