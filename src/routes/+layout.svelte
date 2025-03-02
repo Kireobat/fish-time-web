@@ -33,7 +33,7 @@
 </script>
 
 <div
-    class="bg-background-950 dark:bg-background-50 text-text-50 dark:text-text-950 font-family-body font-normal"
+    class="dark:bg-background-950 bg-background-50 font-family-body font-normal"
 >
     <div class="hidden sm:block mx-8">
         <Navbar color="none">
@@ -43,9 +43,8 @@
                     alt="Flowbite logo"
                     class="w-16 h-16 mr-2"
                 />
-                <span
-                    class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-                    >Fishtime</span
+                <P class="self-center whitespace-nowrap text-xl font-semibold "
+                    >Fishtime</P
                 >
             </NavBrand>
             <NavHamburger />
@@ -76,18 +75,12 @@
                     <DropdownItem href="/legal">Legal</DropdownItem>
 
                     {#if user.current}
-                        <DropdownItem>
-                            <a href="/admin">Admin</a>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <a href="/profile">Profile</a>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <a href="/logout">Log out</a>
-                        </DropdownItem>
+                        <DropdownItem href="/admin">Admin</DropdownItem>
+                        <DropdownItem href="/profile">Profile</DropdownItem>
+                        <DropdownItem href="/logout">Log out</DropdownItem>
                     {:else}
-                        <DropdownItem>
-                            <a href="/login">Log in or register</a>
+                        <DropdownItem href="/login"
+                            >Log in or register
                         </DropdownItem>
                     {/if}
                 </Dropdown>

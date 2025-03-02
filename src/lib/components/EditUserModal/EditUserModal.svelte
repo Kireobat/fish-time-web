@@ -1,19 +1,17 @@
 <script lang="ts">
     import { Modal, Label, Input, Button, Tooltip } from "flowbite-svelte";
-    import { user } from "$lib/functions/user.svelte";
-    import type { Snippet } from "svelte";
-    import type { UpdateUserDto } from "$lib/generated/fish-time";
+    import type { UpdateUserDto, UserDto } from "$lib/generated/fish-time";
     import { patchUser } from "$lib/functions/patch/patchUser";
+    import { PenOutline } from "flowbite-svelte-icons";
 
     interface EditProfileModalProps {
-        children: Snippet<[]>;
-        open: boolean;
+        user: UserDto;
     }
 
-    let { children, open = $bindable(false) }: EditProfileModalProps = $props();
+    let { user }: EditProfileModalProps = $props();
 
-    let username = $state(user.current?.username);
-    let email = $state(user.current?.email);
+    let username = $state(user.username);
+    let email = $state(user.email);
 
     let oldPassword = $state("");
     let password = $state("");
@@ -21,15 +19,19 @@
 
     const handleEditProfile = async () => {
         const updateUserDto: UpdateUserDto = {
-            id: user.current?.id,
+            id: user.id,
             username: username,
         };
 
         await patchUser(updateUserDto);
     };
+
+    let open = $state(false);
 </script>
 
-{@render children()}
+<Button color="green" size="sm" onclick={() => (open = true)}>
+    <PenOutline class="mr-2 h-4 w-4" />Edit
+</Button>
 
 <Modal title="Edit Profile" bind:open autoclose>
     <div class="p-6">

@@ -1,31 +1,25 @@
 <script lang="ts">
     import { Modal, Button, Radio, P } from "flowbite-svelte";
-    import { user } from "$lib/functions/user.svelte";
-    import type { Snippet } from "svelte";
-    import type {
-        DeleteUserRequest,
-        UpdateUserDto,
-    } from "$lib/generated/fish-time";
-    import { patchUser } from "$lib/functions/patch/patchUser";
+    import type { DeleteUserRequest, UserDto } from "$lib/generated/fish-time";
     import { deleteUser } from "$lib/functions/delete/deleteUser";
+    import { TrashBinOutline } from "flowbite-svelte-icons";
 
     interface EditProfileModalProps {
-        children: Snippet<[]>;
-        open: boolean;
+        user: UserDto;
     }
 
-    let { children, open = $bindable(false) }: EditProfileModalProps = $props();
+    let { user }: EditProfileModalProps = $props();
 
     let deleteMode = $state("soft");
 
     const handleDeleteProfile = async () => {
         if (
             confirm(
-                "Are you sure you want to delete your profile? This action is irreversible.",
+                "Are you sure you want to delete this account? This action is irreversible.",
             )
         ) {
             const deleteUserRequest: DeleteUserRequest = {
-                id: user.current?.id!!,
+                id: user.id!!,
                 dataWipe: deleteMode === "hard",
             };
 
@@ -33,11 +27,13 @@
         }
     };
 
-    let softDelete = $state(true);
-    let hardDelete = $state(false);
+    let open = $state(false);
 </script>
 
-{@render children()}
+<Button color="red" onclick={() => (open = true)}>
+    <TrashBinOutline />
+    Delete Account
+</Button>
 
 <Modal title="Delete Profile" bind:open autoclose outsideclose>
     <div class="p-6">
@@ -52,7 +48,7 @@
                     name="delete-type"
                     value="soft"
                     bind:group={deleteMode}
-                    class="p-3">Only delete my account</Radio
+                    class="p-3">Only delete account</Radio
                 >
             </li>
             <li class="w-full">
@@ -71,12 +67,11 @@
             </P>
             <P class="text-sm text-gray-600 dark:text-gray-300">
                 {#if deleteMode === "soft"}
-                    Your account will be deleted but your data will be retained
-                    in the system. Anything you've created will be attributed to
-                    'DELETED'. Deleting your data will not be possible after
-                    this.
+                    The account will be deleted but data will be retained in the
+                    system. Anything the account has created will be attributed
+                    to 'DELETED'. Deleting data will not be possible after this.
                 {:else}
-                    Your account and all associated data will be permanently
+                    The account and all associated data will be permanently
                     deleted from our system.
                 {/if}
             </P>
@@ -88,7 +83,7 @@
             >
             <Button color="red" onclick={handleDeleteProfile}
                 >{#if deleteMode === "soft"}
-                    Delete my profile
+                    Delete the account
                 {:else}
                     Delete all data
                 {/if}</Button

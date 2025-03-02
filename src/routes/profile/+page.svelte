@@ -2,10 +2,10 @@
     import { user } from "$lib/functions/user.svelte";
     import { Button, Card, Avatar, Heading } from "flowbite-svelte";
     import { PenOutline, TrashBinOutline } from "flowbite-svelte-icons";
-    import EditProfileModal from "$lib/components/EditProfileModal/EditProfileModal.svelte";
+    import EditProfileModal from "$lib/components/EditUserModal/EditUserModal.svelte";
     import { onMount } from "svelte";
     import { feedback } from "$lib/functions/feedback.svelte";
-    import DeleteProfileModal from "$lib/components/DeleteProfileModal/DeleteProfileModal.svelte";
+    import DeleteProfileModal from "$lib/components/DeleteUserModal/DeleteUserModal.svelte";
 
     let deleteProfileModalOpen = $state(false);
     let editProfileModalOpen = $state(false);
@@ -24,25 +24,8 @@
                 </p>
 
                 <div class="flex gap-3 mb-6">
-                    <EditProfileModal bind:open={editProfileModalOpen}>
-                        <Button
-                            color="blue"
-                            onclick={() => (editProfileModalOpen = true)}
-                        >
-                            <PenOutline />
-                            Edit Profile
-                        </Button>
-                    </EditProfileModal>
-
-                    <DeleteProfileModal bind:open={deleteProfileModalOpen}>
-                        <Button
-                            color="red"
-                            onclick={() => (deleteProfileModalOpen = true)}
-                        >
-                            <TrashBinOutline />
-                            Delete Account
-                        </Button>
-                    </DeleteProfileModal>
+                    <EditProfileModal user={user.current} />
+                    <DeleteProfileModal user={user.current} />
                 </div>
             </div>
 

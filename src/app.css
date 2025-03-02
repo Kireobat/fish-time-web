@@ -19,75 +19,112 @@ html {
     font-size: 100%;
 }
 
+/* Light mode active button styles */
+.ec-button.ec-active.ec-listDay,
+.ec-button.ec-active.ec-timeGridDay,
+.ec-button.ec-active.ec-timeGridWeek,
+.ec-button.ec-active.ec-dayGridMonth {
+    background-color: var(--color-primary-500);
+    color: white !important;
+}
+
+/* Light mode hover styles for inactive buttons */
+.ec-button:not(.ec-active):hover {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-700);
+}
+
+/* Light mode hover styles for active buttons */
+.ec-button.ec-active:hover {
+    background-color: var(--color-primary-600);
+}
+
+/* Dark mode active button styles */
+.dark .ec-button.ec-active.ec-listDay,
+.dark .ec-button.ec-active.ec-timeGridDay,
+.dark .ec-button.ec-active.ec-timeGridWeek,
+.dark .ec-button.ec-active.ec-dayGridMonth {
+    background-color: var(--color-primary-600);
+    color: white !important;
+}
+
+/* Dark mode hover styles for inactive buttons */
+.dark .ec-button:not(.ec-active):hover {
+    background-color: var(--color-primary-800);
+    color: var(--color-primary-300);
+}
+
+/* Dark mode hover styles for active buttons */
+.dark .ec-button.ec-active:hover {
+    background-color: var(--color-primary-700);
+}
+
 @plugin 'flowbite/plugin';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    /* Text colors */
-    --color-text-50: #130707;
-    --color-text-100: #250e0e;
-    --color-text-200: #4b1b1b;
-    --color-text-300: #702929;
-    --color-text-400: #963636;
-    --color-text-500: #bb4444;
-    --color-text-600: #c96969;
-    --color-text-700: #d68f8f;
-    --color-text-800: #e4b4b4;
-    --color-text-900: #f1dada;
-    --color-text-950: #f8ecec;
 
-    /* Background colors */
-    --color-background-50: #140805;
-    --color-background-100: #290f0a;
-    --color-background-200: #521f14;
-    --color-background-300: #7a2e1f;
-    --color-background-400: #a33d29;
-    --color-background-500: #cc4c33;
-    --color-background-600: #d6705c;
-    --color-background-700: #e09485;
-    --color-background-800: #ebb8ad;
-    --color-background-900: #f5dbd6;
-    --color-background-950: #faedeb;
+    --color-text-50: #eae9fc;
+    --color-text-100: #d6d2f9;
+    --color-text-200: #ada5f3;
+    --color-text-300: #8478ed;
+    --color-text-400: #5b4be7;
+    --color-text-500: #321fe0;
+    --color-text-600: #2818b4;
+    --color-text-700: #1e1287;
+    --color-text-800: #140c5a;
+    --color-text-900: #0a062d;
+    --color-text-950: #050316;
 
-    /* Primary colors */
-    --color-primary-50: #0d0d0d;
-    --color-primary-100: #1a1a1a;
-    --color-primary-200: #333333;
-    --color-primary-300: #4d4d4d;
-    --color-primary-400: #666666;
-    --color-primary-500: #808080;
-    --color-primary-600: #999999;
-    --color-primary-700: #b3b3b3;
-    --color-primary-800: #cccccc;
-    --color-primary-900: #e6e6e6;
-    --color-primary-950: #f2f2f2;
+    --color-background-50: #ebebfa;
+    --color-background-100: #d6d6f5;
+    --color-background-200: #adadeb;
+    --color-background-300: #8585e0;
+    --color-background-400: #5c5cd6;
+    --color-background-500: #3333cc;
+    --color-background-600: #2929a3;
+    --color-background-700: #1f1f7a;
+    --color-background-800: #141452;
+    --color-background-900: #0a0a29;
+    --color-background-950: #050514;
 
-    /* Secondary colors */
-    --color-secondary-50: #0f1406;
-    --color-secondary-100: #1e280b;
-    --color-secondary-200: #3c5016;
-    --color-secondary-300: #597722;
-    --color-secondary-400: #779f2d;
-    --color-secondary-500: #95c738;
-    --color-secondary-600: #aad260;
-    --color-secondary-700: #bfdd88;
-    --color-secondary-800: #d5e9af;
-    --color-secondary-900: #eaf4d7;
-    --color-secondary-950: #f4f9eb;
+    --color-primary-50: #eaeafb;
+    --color-primary-100: #d6d4f7;
+    --color-primary-200: #ada9ef;
+    --color-primary-300: #847ee7;
+    --color-primary-400: #5b54de;
+    --color-primary-500: #3129d6;
+    --color-primary-600: #2821ab;
+    --color-primary-700: #1e1881;
+    --color-primary-800: #141056;
+    --color-primary-900: #0a082b;
+    --color-primary-950: #050415;
 
-    /* Accent colors */
-    --color-accent-50: #061504;
-    --color-accent-100: #0d2b08;
-    --color-accent-200: #1a5610;
-    --color-accent-300: #268118;
-    --color-accent-400: #33ab21;
-    --color-accent-500: #40d629;
-    --color-accent-600: #66de54;
-    --color-accent-700: #8ce77e;
-    --color-accent-800: #b3efa9;
-    --color-accent-900: #d9f7d4;
-    --color-accent-950: #ecfbea;
+    --color-secondary-50: #e7e5ff;
+    --color-secondary-100: #cfccff;
+    --color-secondary-200: #9e99ff;
+    --color-secondary-300: #6e66ff;
+    --color-secondary-400: #3d33ff;
+    --color-secondary-500: #0d00ff;
+    --color-secondary-600: #0a00cc;
+    --color-secondary-700: #080099;
+    --color-secondary-800: #050066;
+    --color-secondary-900: #030033;
+    --color-secondary-950: #01001a;
+
+    --color-accent-50: #e6e5ff;
+    --color-accent-100: #ceccff;
+    --color-accent-200: #9c99ff;
+    --color-accent-300: #6b66ff;
+    --color-accent-400: #3a33ff;
+    --color-accent-500: #0800ff;
+    --color-accent-600: #0700cc;
+    --color-accent-700: #050099;
+    --color-accent-800: #030066;
+    --color-accent-900: #020033;
+    --color-accent-950: #01001a;
+
 }
 
 @source "../node_modules/flowbite-svelte/dist";

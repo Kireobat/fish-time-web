@@ -115,5 +115,7 @@
             >
         </CreateMeetingModal>
     </div>
-    <Calendar {plugins} {options} />
+    <div class=" dark:text-text-50">
+        <Calendar {plugins} {options} />
+    </div>
 </div>

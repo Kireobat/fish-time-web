@@ -1,27 +1,24 @@
 import { authApi } from "$lib/api/apiClient";
-import { FishTimeResponseDtoStatusEnum, ResponseError, type FishTimeResponseDto, type UserDto } from "$lib/generated/fish-time";
+import { ResponseError, type FishTimeResponseDto, type LoginDto } from "$lib/generated/fish-time";
 import { feedback } from "../feedback.svelte";
 
-export const getProfile = async (): Promise<UserDto> => {
+
+export const isAdmin = async (): Promise<boolean> => {
     try {
-        return await authApi.getProfile();
+        return await authApi.getAdminStatus();
     } catch (error) {
         if (error instanceof ResponseError) {
             const res = await error.response.json() as FishTimeResponseDto;
-
-            if (FishTimeResponseDtoStatusEnum._401Unauthorized.includes(res.status!!)) {
-                throw res;
-            }
 
             feedback.current?.push({
                 message: res.message!!,
                 type: "error"
             });
 
-            throw res;
+            return false;
         } else {
             console.error(error);
-            throw error;
+            return false;
         }
     }
 }

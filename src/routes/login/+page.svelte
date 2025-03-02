@@ -67,7 +67,7 @@
         ];
     });
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (
             username === "" ||
             email === "" ||
@@ -101,10 +101,14 @@
             password: password,
         };
 
-        register(createUserDto);
+        const res = await register(createUserDto);
+
+        if (res.success) {
+            window.location.href = "/";
+        }
     };
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (email === "" || password === "") {
             alert("Please fill in all fields");
             return;
@@ -115,7 +119,11 @@
             password: password,
         };
 
-        login(loginDto);
+        const res = await login(loginDto);
+
+        if (res.success) {
+            window.location.href = "/";
+        }
     };
 </script>
 

@@ -101,7 +101,6 @@
 
     $effect(() => {
         roomSearchQuery = roomDto?.name ?? "";
-        console.log(roomDto?.id);
     });
 
     const handleCreateMeeting = async () => {
