@@ -93,8 +93,8 @@
             };
 
             try {
-                const success = await updateMeeting(updateMeetingDto);
-                if (!success) {
+                const res = await patchMeeting(updateMeetingDto);
+                if (!res.id) {
                     info.revert();
                 }
             } catch (error) {
@@ -110,8 +110,8 @@
             };
 
             try {
-                const success = await updateMeeting(updateMeetingDto);
-                if (!success) {
+                const res = await patchMeeting(updateMeetingDto);
+                if (!res.id) {
                     info.revert();
                 }
             } catch (error) {
@@ -149,18 +149,6 @@
             });
         }
     });
-
-    const updateMeeting = async (
-        meeting: UpdateMeetingDto,
-    ): Promise<boolean> => {
-        const res = await patchMeeting(meeting);
-
-        if (instanceOfFishTimeResponseDto(res)) {
-            return false;
-        }
-
-        return true;
-    };
 </script>
 
 <MeetingModal bind:open={meetingModalIsOpen} meeting={selectedMeeting} />
