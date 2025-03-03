@@ -130,6 +130,8 @@
         if (meetingDto) {
             await addParticipants(meetingParticipants, meetingDto);
         }
+
+        window.location.reload();
     };
 
     const addParticipants = async (

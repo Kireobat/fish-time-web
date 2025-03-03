@@ -1,7 +1,9 @@
 <script lang="ts">
     import { isAdmin } from "$lib/functions/auth/isAdmin";
+    import { deleteMeeting } from "$lib/functions/delete/deleteMeeting";
     import { getRooms } from "$lib/functions/get/getRooms";
     import { getUsers } from "$lib/functions/get/getUsers";
+    import { patchMeeting } from "$lib/functions/patch/patchMeeting";
     import { user } from "$lib/functions/user.svelte";
     import type {
         FishTimePageDtoRoomDto,
@@ -9,6 +11,7 @@
         MeetingDto,
         ParticipantDto,
         RoomDto,
+        UpdateMeetingDto,
     } from "$lib/generated/fish-time";
     import {
         Heading,
@@ -27,6 +30,7 @@
         MapPinOutline,
         EditOutline,
         ChevronDownOutline,
+        TrashBinOutline,
     } from "flowbite-svelte-icons";
     import { onMount } from "svelte";
 
@@ -127,6 +131,35 @@
     $effect(() => {
         roomSearchQuery = roomDto?.name ?? "";
     });
+
+    const handleDeleteMeeting = async () => {
+        if (meeting) {
+            if (
+                confirm(
+                    `Are you sure you want to delete the meeting "${meeting?.title}"?`,
+                )
+            ) {
+                await deleteMeeting(meeting.id as number);
+                open = false;
+                window.location.reload();
+            }
+        }
+    };
+
+    const handleEditMeeting = async () => {
+        const updateMeetingDto: UpdateMeetingDto = {
+            id: meeting?.id,
+            title: title,
+            description: description,
+            startTime: startTime,
+            endTime: endTime,
+            roomId: roomDto?.id,
+        };
+
+        await patchMeeting(updateMeetingDto);
+        open = false;
+        window.location.reload();
+    };
 </script>
 
 <Modal bind:open outsideclose class="w-full max-w-2xl">
@@ -143,13 +176,18 @@
                 >
             {/if}
             {#if user.current?.id === meeting.createdBy?.id || isAdminUser}
-                <Button
-                    color="blue"
-                    size="sm"
-                    onclick={() => (inEditMode = !inEditMode)}
-                >
-                    <EditOutline class="mr-2 h-4 w-4" />Edit
-                </Button>
+                <div class="flex gap-4">
+                    <Button
+                        color="blue"
+                        size="sm"
+                        onclick={() => (inEditMode = !inEditMode)}
+                    >
+                        <EditOutline class="mr-2 h-4 w-4" />Edit
+                    </Button>
+                    <Button color="red" size="sm" onclick={handleDeleteMeeting}>
+                        <TrashBinOutline class="mr-2 h-4 w-4" />Delete
+                    </Button>
+                </div>
             {/if}
         </div>
 
@@ -449,7 +487,12 @@
         </div>
         {#if inEditMode}
             <div class="mt-6">
-                <Button color="blue" class="w-full" size="lg">Save</Button>
+                <Button
+                    color="blue"
+                    class="w-full"
+                    size="lg"
+                    onclick={handleEditMeeting}>Save</Button
+                >
             </div>
         {/if}
     {:else}

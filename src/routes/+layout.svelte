@@ -93,9 +93,7 @@
 
     {@render children()}
 
-    <div
-        class="block sm:hidden py-3 bottom-0 fixed left-0 right-0 bg-background-950 dark:bg-background-50"
-    >
+    <div class="block sm:hidden py-3 bottom-0 fixed left-0 right-0">
         <MobileNavbar />
     </div>
 </div>
