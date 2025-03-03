@@ -137,7 +137,65 @@ export interface CalendarOptions {
     selectable?: boolean;
     view?: string;
     views?: Record<string, Partial<CalendarOptions>>;
-    // Add other options as needed
+    editable?: boolean;
+    eventStartEditable?: boolean;
+    eventDurationEditable?: boolean;
+    eventDragMinDistance?: number;
+    eventLongPressDelay?: number;
+    eventDragStart?: (info: {
+        event: Event;
+        jsEvent: MouseEvent;
+        view: View;
+    }) => void;
+
+    eventDragStop?: (info: {
+        event: Event;
+        jsEvent: MouseEvent;
+        view: View;
+    }) => void;
+
+    eventDrop?: (info: {
+        event: Event;
+        oldEvent: Event;
+        oldResource?: Resource;
+        newResource?: Resource;
+        delta: Duration;
+        revert: () => void;
+        jsEvent: MouseEvent;
+        view: View;
+    }) => void;
+
+    // Event resize related options
+    eventResizableFromStart?: boolean;
+
+    // Event resize callbacks
+    eventResizeStart?: (info: {
+        event: Event;
+        jsEvent: MouseEvent;
+        view: View;
+    }) => void;
+
+    eventResizeStop?: (info: {
+        event: Event;
+        jsEvent: MouseEvent;
+        view: View;
+    }) => void;
+
+    eventResize?: (info: {
+        event: Event;
+        oldEvent: Event;
+        endDelta: Duration;
+        revert: () => void;
+        jsEvent: MouseEvent;
+        view: View;
+    }) => void;
+
+    // Additional options from docs
+    filterEventsWithResources?: boolean;
+    filterResourcesWithEvents?: boolean;
+    flexibleSlotTimeLimits?: boolean | {
+        eventFilter: (event: Event) => boolean;
+    };
 }
 
 export interface CalendarProps {

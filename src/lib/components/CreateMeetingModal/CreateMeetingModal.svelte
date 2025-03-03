@@ -27,10 +27,16 @@
     interface CreateMeetingModalProps {
         children: Snippet<[]>;
         open: boolean;
+        startDate?: Date;
+        endDate?: Date;
     }
 
-    let { children, open = $bindable(false) }: CreateMeetingModalProps =
-        $props();
+    let {
+        children,
+        open = $bindable(false),
+        startDate,
+        endDate,
+    }: CreateMeetingModalProps = $props();
 
     let filtersVisible = $state(false);
 
@@ -100,6 +106,11 @@
     });
 
     $effect(() => {
+        meetingStartTime = startDate;
+        meetingEndTime = endDate;
+    });
+
+    $effect(() => {
         roomSearchQuery = roomDto?.name ?? "";
     });
 
@@ -137,6 +148,18 @@
     const toggleFilters = () => {
         filtersVisible = !filtersVisible;
     };
+
+    function formatDate(date: Date | undefined): string {
+        if (!date) return "";
+        return date.toLocaleString("nb-NO", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+    }
 </script>
 
 {@render children()}
@@ -171,6 +194,7 @@
                         required
                         bind:value={meetingStartTime}
                     />
+                    <P>{formatDate(meetingStartTime)}</P>
                 </div>
                 <div class="w-full">
                     <Label for="end_time">End time</Label>
@@ -180,6 +204,7 @@
                         required
                         bind:value={meetingEndTime}
                     />
+                    <P>{formatDate(meetingEndTime)}</P>
                 </div>
             </div>
             <div>

@@ -1,14 +1,17 @@
 <script lang="ts">
     import { user } from "$lib/functions/user.svelte";
-    import { Button, Card, Avatar, Heading } from "flowbite-svelte";
-    import { PenOutline, TrashBinOutline } from "flowbite-svelte-icons";
+    import { Card, Avatar, Heading } from "flowbite-svelte";
     import EditProfileModal from "$lib/components/EditUserModal/EditUserModal.svelte";
-    import { onMount } from "svelte";
-    import { feedback } from "$lib/functions/feedback.svelte";
     import DeleteProfileModal from "$lib/components/DeleteUserModal/DeleteUserModal.svelte";
 
-    let deleteProfileModalOpen = $state(false);
-    let editProfileModalOpen = $state(false);
+    function formatDate(date: Date | undefined): string {
+        if (!date) return "";
+        return date.toLocaleString("nb-NO", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+        });
+    }
 </script>
 
 <div class="container mx-auto px-4 py-8">
@@ -39,9 +42,7 @@
                                 >Member Since</span
                             >
                             <span class="text-gray-600 dark:text-gray-300">
-                                {new Date(
-                                    user.current.createdTime,
-                                ).toLocaleDateString()}
+                                {formatDate(user.current.createdTime)}
                             </span>
                         </div>
                     {/if}

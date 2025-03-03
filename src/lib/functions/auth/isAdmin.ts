@@ -10,10 +10,12 @@ export const isAdmin = async (): Promise<boolean> => {
         if (error instanceof ResponseError) {
             const res = await error.response.json() as FishTimeResponseDto;
 
-            feedback.current?.push({
-                message: res.message!!,
-                type: "error"
-            });
+            if (res.status?.toString() != "UNAUTHORIZED") {
+                feedback.current?.push({
+                    message: res.message!!,
+                    type: "error"
+                });
+            }
 
             return false;
         } else {
