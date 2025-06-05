@@ -1,12 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:20.10'
-        }
-    }
-    tools {
-        nodejs 'node_20.11.0'
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
